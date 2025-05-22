@@ -10,7 +10,7 @@ export const generateNumber = (userId: object, phoneNumber: string, salt: string
   let digits = hash.replace(/\D/g, '');
 
   // If not enough digits, rehash until we have enough
-  while (digits.length < 16) {
+  while (digits.length < length) {
     hash = crypto.createHash('sha256').update(hash).digest('hex');
     digits += hash.replace(/\D/g, '');
   }
