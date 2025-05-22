@@ -11,9 +11,6 @@ const configData = {
     server: {
         port: process.env.PORT || 3000
     },
-    jwtToken: {
-        jwt: process.env.JWT
-    },
     appKey: {
         key: process.env.appKey,
         cardKey: process.env.CARD,

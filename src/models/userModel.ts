@@ -7,7 +7,6 @@ const userSchema = new Schema<IUser>({
     email: {type: String, unique: true, required: true, trim: true, index: true},
     phoneNumber: {type: String, unique: true, required: true, trim: true, index: true},
     dateOfBirth: {type: String, required: true, trim: true},
-    password: {type: String, required: true, trim: true},
 }, {timestamps: true, versionKey: false});
 
 const User = model<IUser>('User', userSchema);

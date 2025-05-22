@@ -1,30 +1,27 @@
 import { Request, Response, NextFunction } from "express";
 import userService from "../services/userServices";
 import accService from "../services/accountServices";
-import bcrypt from 'bcrypt';
 import encryptLib from "../utils/encryptLib";
 import generateNumber from "../utils/account";
 import configData from "../configs/config";
 
+
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
-    const {firstName, surname, email, phoneNumber, dateOfBirth, password} = req.body;
+    const {firstName, surname, email, phoneNumber, dateOfBirth} = req.body;
 
     try {
         // check if email or phone already existed
         const existingUser = await userService.fetchUser(email, phoneNumber);
         if (existingUser) {
-            res.status(409).json({
+            res.status(400).json({
                 success: false,
                 message: 'Email or phone already used'
             })
             return;
         }
 
-        // hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // encryption dateOfBirth
-        const encryptedDoB = encryptLib.encrypt(dateOfBirth, configData.appKey.key as string);
+        // encryption dateOfBirth and phoneNumber
+        const encryptedDoB = encryptLib.encrypt(dateOfBirth.toISOString(), configData.appKey.key as string);
         const encryptedPhone = encryptLib.encrypt(phoneNumber, configData.appKey.key as string);
 
         const newUser = {
@@ -33,11 +30,11 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
             email: email,
             phoneNumber: encryptedPhone,
             dateOfBirth: encryptedDoB,
-            password: hashedPassword
         };
 
         const createdUser = await userService.createUser(newUser);
 
+        // generate accountNumber, cardNumber and cvv
         const accNumber = generateNumber(createdUser._id, phoneNumber, configData.appKey.key as string, 10);
         const cardNumber = generateNumber(createdUser._id, phoneNumber, configData.appKey.cardKey as string, 16);
         const cvv = generateNumber(createdUser._id, phoneNumber, configData.appKey.cvvKey as string, 3);
@@ -47,41 +44,38 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
         // Add 3 years to the current year
         const futureYear = today.getFullYear() + 3;
 
-        // Get the current month (1 to 12)
+        // Get the current month
         const month = (today.getMonth() + 1).toString().padStart(2, '0');
 
-        // Get the last two digits of the year (e.g. 2028 -> "28")
+        // Get the last two digits of the year
         const year = futureYear.toString().slice(-2);
         const expiryDate = `${month}/${year}`;
 
-        console.log(expiryDate);
-        console.log(cvv);
-        console.log(cardNumber);
-        
-
+        // encrypt accountNumber, cardNumber and cvv
         const encryptedCardNumber = encryptLib.encrypt(cardNumber, configData.appKey.cardKey as string);
         const encryptedCVV = encryptLib.encrypt(cvv, configData.appKey.cvvKey as string);
         const encryptedExpiryDate = encryptLib.encrypt(expiryDate, configData.appKey.key as string);
 
         const newAcc = {
-            _id: createdUser._id,
+            user: createdUser._id,
             accNumber: accNumber,
             cardNumber: encryptedCardNumber,
             cvv: encryptedCVV,
             expiryDate: encryptedExpiryDate
         }
 
-        const createdAcc = await accService.createAccount(newAcc)
+        const createdAcc = await accService.createAccount(newAcc);
+
         
         res.status(201).json({
-            success: true,
-            message: 'user created successfully',
-            accountData: createdAcc,
-        })
-    } catch (error) {
+                success: true,
+                message: 'Obade created your account and Adaeza successfully created your banking details',
+                accountData: createdAcc,
+            })
+    } catch (error: any) {
         res.status(500).json({
             success: false,
-            message: error || 'Internal server error'
+            message: error.message || 'Internal server error'
         })
         return;
     }

@@ -13,8 +13,13 @@ class UserServices {
             $or: [{ email: email }, { phoneNumber: phoneNumber }]
         });
     }
+
+    // fetch all user
+    async fetchAllUser() {
+        return await User.find({})
+    }
 }
 
-const userService = new UserServices
+export const userService = new UserServices
 
 export default userService
