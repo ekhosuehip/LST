@@ -1,0 +1,72 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Account",
+    "collectionId": "788b03c4-c650-4b08-b6f9-a1c4ef3d2222",
+    "dateExported": "2025-05-22T17:33:46.742Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "f6105947-4063-4721-ab8a-d64d86f34ddb",
+            "colId": "788b03c4-c650-4b08-b6f9-a1c4ef3d2222",
+            "containerId": "",
+            "name": "Create account",
+            "url": "https://lst-dr8r.onrender.com/api/v1/signup",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2025-05-22T17:25:58.980Z",
+            "modified": "2025-05-22T17:25:58.980Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstName\": \"Chuka\",\n  \"surname\": \"Nwosu\",\n  \"email\": \"chukaswxw@example.com\",\n  \"phoneNumber\": \"08020000000\",\n  \"dateOfBirth\": \"1990-12-01\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "a6b8f1e6-b5ce-4cbf-83f1-9b03dee97d88",
+            "colId": "788b03c4-c650-4b08-b6f9-a1c4ef3d2222",
+            "containerId": "",
+            "name": "Get all accounts",
+            "url": "https://lst-dr8r.onrender.com/api/v2/accounts",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2025-05-22T17:27:23.462Z",
+            "modified": "2025-05-22T17:27:23.462Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "4d5eef53-6ac6-4665-8798-db16c4a74b51",
+            "colId": "788b03c4-c650-4b08-b6f9-a1c4ef3d2222",
+            "containerId": "",
+            "name": "Decrypt data",
+            "url": "https://lst-dr8r.onrender.com/api/v2/decrypt",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2025-05-22T17:33:07.995Z",
+            "modified": "2025-05-22T17:33:07.995Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"cardNumber\": \"5b4eb84839a11c53c72dad3133f683de:a604bc571da574c8db21b61776abe3555d07b19854cdcd746a12178d7764645b\",\n  \"cvv\": \"1e46cb3308ec8f8767d6fcf8ab9f52dc:4cd95797dabe68ff8e8845670b9c1856\",\n  \"expiryDate\": \"a68016e18ccab38ff6a0fba912490203:42731be33546f05b54483b19b8e661b9\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "VSoTnbwPG9J1vmm9i1ifjHtiNi-tjJ0uV5iyKJlgZC87-Hacsy4yYUC2I4ztwgzHNIpmxc8JhnbTIwM4JowBog"
+}
