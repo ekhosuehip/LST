@@ -19,6 +19,14 @@ export const listAccounts = async (req: Request, res: Response, next: NextFuncti
             return {
                fullName: `${acct.user.firstName} ${acct.user.surname}`,
                accountNumber: acct.accNumber,
+               phoneNumber: {
+                encrypted: acct.user.phoneNumber,
+                decrpted: encryptLib.decrypt(acct.user.phoneNumber, configData.appKey.key as string)
+               },
+               dateOfBirth: {
+                encrypted: acct.user.dateOfBirth,
+                decrpted: encryptLib.decrypt(acct.user.dateOfBirth, configData.appKey.key as string)
+               },
                cardNumber: {
                 encrpted: acct.cardNumber,
                 decrpted: encryptLib.decrypt(acct.cardNumber, configData.appKey.cardKey as string)

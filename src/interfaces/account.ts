@@ -16,5 +16,7 @@ export interface PopulatedAccount {
     user: {
         firstName: string;
         surname: string;
+        phoneNumber: string;
+        dateOfBirth: string 
     };
 }
