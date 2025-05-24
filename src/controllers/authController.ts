@@ -72,10 +72,10 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
                 message: 'Obade created your account and Adaeza successfully created your banking details',
                 accountData: createdAcc,
             })
-    } catch (error: any) {
+    } catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message || 'Internal server error'
+            message: error || 'Internal server error'
         })
         return;
     }

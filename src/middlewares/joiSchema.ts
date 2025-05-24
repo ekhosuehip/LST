@@ -56,13 +56,13 @@ export const schema = {
 
         phoneNumber: Joi.string()
             .pattern(/^[\w:/.-]+$/)
-            .min(33 + 64)
+            .min(33 + 32)
             .max(97)
             .optional(),
 
         dateOfBirth: Joi.string()
             .pattern(/^[\w:/.-]+$/)
-            .min(33 + 64)
+            .min(33 + 32)
             .max(97)
             .optional()
         })
