@@ -12,10 +12,20 @@ mongoose.connect(configData.mongo.url as string)
     .then(()=> console.log('connected to database'))
     .catch((error)=> console.log('Database connection error', error))
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Health check
+app.get('/api/health', (req, res) => {
+res.status(200).json({
+    status: true,
+    message: 'Server is running smoothly'
+});
+});
+
+// Endpoints
 app.use('/api/v1', authRouter);
 app.use('/api/v2', accRouter);
 

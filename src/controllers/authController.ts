@@ -20,8 +20,11 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
             return;
         }
 
+        // Format the date to just YYYY-MM-DD
+        const formattedDoB = dateOfBirth.toISOString().split('T')[0];
+
         // encryption dateOfBirth and phoneNumber
-        const encryptedDoB = encryptLib.encrypt(dateOfBirth.toISOString(), configData.appKey.key as string);
+        const encryptedDoB = encryptLib.encrypt(formattedDoB, configData.appKey.key as string);
         const encryptedPhone = encryptLib.encrypt(phoneNumber, configData.appKey.key as string);
 
         const newUser = {
