@@ -8,8 +8,8 @@ export const listAccounts = async (req: Request, res: Response, next: NextFuncti
         // fetch all accounts
         const allAccounts = await accService.fetchAccounts();
         if (!allAccounts || allAccounts.length == 0) {
-            res.status(400).json({
-                success: false,
+            res.status(200).json({
+                success: true,
                 message: 'Zubairu says "No account found"'
             })
             return;
