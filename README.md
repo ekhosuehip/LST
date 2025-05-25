@@ -19,7 +19,7 @@ This project simulates user registration, account creation, data encryption/decr
 ## 📚 API Documentation
 
 View full API docs here:  
-🔗 [LST Banking API Postman Docs](https://documenter.getpostman.com/view/42833912/2sB2qcBLRN)
+🔗 [Finable Banking API Postman Docs](https://documenter.getpostman.com/view/42833912/2sB2qcCg7s)
 
 ---
 
